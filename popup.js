@@ -3,9 +3,16 @@ async function fetchLinks() {
         if (result && result.lalLinks) {
             const tmpLinks = result.lalLinks;
             
+            const list = document.getElementById("links");
+            const entry = document.createElement('div');
+
+            if (tmpLinks.length == 0) {
+                entry.appendChild(document.createTextNode('Keine Daten vorhanden'));
+            }
+
+
             tmpLinks.forEach((element, index) => {
-                const list = document.getElementById("links");
-                const entry = document.createElement('li');
+                //prepare button
                 const button = document.createElement('button')
                 button.setAttribute('class', 'btn btn-danger');
                 button.setAttribute('type', 'button');
@@ -13,14 +20,15 @@ async function fetchLinks() {
                 icon.setAttribute('class', 'bi bi-trash');
                 button.appendChild(icon);
                 button.addEventListener("click", () => deleteLink(tmpLinks, index));
+
                 const link = document.createElement('a');
                 link.setAttribute('href', element);
                 link.setAttribute('target', '_blank');
-                link.appendChild(document.createTextNode(element));
+                link.appendChild(document.createTextNode('Link'));
                 entry.appendChild(link);
                 entry.appendChild(button);
-                list.appendChild(entry);
-            });            
+            });
+            list.appendChild(entry);
         }  
     });
 }
