@@ -1,11 +1,17 @@
 saveLink = function(link){
-    chrome.storage.local.set({'link': link.linkUrl}, function() {
-        console.log('Value is set to ' + link.linkUrl);
+    var tmpLinks = [];
+
+    chrome.storage.local.get(['lalLinks'], function(result) {
+        if (result && result.links) {
+            tmpLinks = result.links;
+        }
+        tmpLinks.push(link.linkUrl);
+        chrome.storage.local.set({'lalLinks': tmpLinks}, function() {
+            console.dir(tmpLinks);
+        });   
       });
 
-      chrome.storage.local.get(['link'], function(result) {
-        console.dir(result.link);
-      });
+       
 };
 
 chrome.contextMenus.removeAll(function() {
