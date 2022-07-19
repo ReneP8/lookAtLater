@@ -4,8 +4,11 @@
     "description": "Save interesting links for later.",
     "manifest_version": 3,
     "author": "René Baving",
-    "action":{
-        "default_popup": "index.html",
-        "default_title": "Look At Later"
+    "permissions": [
+        "contextMenus",
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "script.js"
     }
 }
