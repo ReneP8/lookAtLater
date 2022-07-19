@@ -1,5 +1,11 @@
 saveLink = function(link){
-    console.log(link.linkUrl);
+    chrome.storage.local.set({'link': link.linkUrl}, function() {
+        console.log('Value is set to ' + link.linkUrl);
+      });
+
+      chrome.storage.local.get(['link'], function(result) {
+        console.dir(result.link);
+      });
 };
 
 chrome.contextMenus.removeAll(function() {
