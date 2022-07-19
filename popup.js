@@ -5,6 +5,7 @@ async function fetchLinks() {
             
             const list = document.getElementById("links");
             const entry = document.createElement('div');
+            entry.setAttribute('class', 'row');
 
             if (tmpLinks.length == 0) {
                 entry.appendChild(document.createTextNode('Keine Daten vorhanden'));
@@ -12,9 +13,15 @@ async function fetchLinks() {
 
 
             tmpLinks.forEach((element, index) => {
+                const divLink = document.createElement('div');
+                const divButton = document.createElement('div');
+                
+                divLink.setAttribute('class', 'col');
+                divButton.setAttribute('class', 'col');
+
                 //prepare button
                 const button = document.createElement('button')
-                button.setAttribute('class', 'btn btn-danger');
+                button.setAttribute('class', 'btn btn-danger btn-sm m-2');
                 button.setAttribute('type', 'button');
                 const icon = document.createElement('icon');
                 icon.setAttribute('class', 'bi bi-trash');
@@ -25,8 +32,10 @@ async function fetchLinks() {
                 link.setAttribute('href', element);
                 link.setAttribute('target', '_blank');
                 link.appendChild(document.createTextNode('Link'));
-                entry.appendChild(link);
-                entry.appendChild(button);
+                divLink.appendChild(link);
+                divButton.appendChild(button);
+                entry.appendChild(divLink);
+                entry.appendChild(divButton);
             });
             list.appendChild(entry);
         }  
