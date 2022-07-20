@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Container, Button } from 'react-bootstrap';
+import {Container, Button, Col, Row, Stack } from 'react-bootstrap';
 import './App.css';
 
 function App() {
@@ -14,10 +14,21 @@ function App() {
   return (
     <div className="App">
       <Container>
+        <h4>Meine Links</h4>
         {links.length != 0 && links.map((link, index) => (
-          <Card>
-            <Card.Body>Title <Button size="sm" target="_blank" href={link}>Watch</Button> <Button size="sm" onClick={async () => await deleteLink(index)}>Delete</Button></Card.Body>
-          </Card>))}
+          <Row>
+            <Col>Title</Col>
+            <Col className="justify-content-end">
+              <Stack direction="horizontal" gap={1}>
+                <Button className="m" size="sm" target="_blank" href={link}>Watch</Button>
+                <Button size="sm" onClick={async () => await deleteLink(index)}>Delete</Button>
+              </Stack>
+            </Col>
+          </Row>))}
+
+        {links.length == 0 &&
+          <p>Keine Links verfügbar</p>
+        }
       </Container>
     </div>
   );
