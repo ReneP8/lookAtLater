@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Container, Button, Col, Row, Stack } from 'react-bootstrap';
-import './App.css';
+import { Container, Button, Col, Row, Stack } from 'react-bootstrap';
 
 function App() {
   const [links, setLinks] = useState([]);
@@ -12,25 +11,28 @@ function App() {
   }, [links]);
 
   return (
-    <div className="App">
-      <Container>
-        <h4>Meine Links</h4>
-        {links.length != 0 && links.map((link, index) => (
-          <Row>
-            <Col>Title</Col>
-            <Col className="justify-content-end">
+    <Container className="m-3">
+      <h4>Meine Links</h4>
+      {links.length != 0 && links.map((link, index) => (
+        <Row className="my-1">
+          <Col><Row className="align-content-center"><p>Link</p></Row></Col>
+          <Col></Col>
+          <Col>
+            <Row className="align-content-center">
               <Stack direction="horizontal" gap={1}>
-                <Button className="m" size="sm" target="_blank" href={link}>Watch</Button>
+                <Button size="sm" target="_blank" href={link}>Watch</Button>
                 <Button size="sm" onClick={async () => await deleteLink(index)}>Delete</Button>
               </Stack>
-            </Col>
-          </Row>))}
+            </Row>
+          </Col>
+        </Row>
+      ))
+      }
 
-        {links.length == 0 &&
-          <p>Keine Links verfügbar</p>
-        }
-      </Container>
-    </div>
+      {links.length == 0 &&
+        <p>Keine Links verfügbar</p>
+      }
+    </Container>
   );
 
   async function deleteLink(index: number) {
