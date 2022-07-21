@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Container, Button, Col, Row, Stack } from 'react-bootstrap';
 
+interface LalLink {
+  title: string;
+  url: string;
+}
+
 function App() {
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState<LalLink[]>([]);
 
   useEffect(() => {
+    // Todo unlimited loop.
     chrome.storage.local.get(['lalLinks'], function (result: any) {
-      setLinks(result.lalLinks);
+      let tmpLinks : LalLink[] = [];
+      tmpLinks = result.lalLinks ? result.lalLinks as LalLink[] : [];
+      console.log(tmpLinks);
+      setLinks(tmpLinks);
     })
   }, [links]);
 
@@ -15,12 +24,12 @@ function App() {
       <h4>Meine Links</h4>
       {links.length != 0 && links.map((link, index) => (
         <Row className="my-1">
-          <Col><Row className="align-content-center"><p>Link</p></Row></Col>
+          <Col><Row className="align-content-center"><p>{link.title}</p></Row></Col>
           <Col></Col>
           <Col>
             <Row className="align-content-center">
               <Stack direction="horizontal" gap={1}>
-                <Button size="sm" target="_blank" href={link}>Watch</Button>
+                <Button size="sm" target="_blank" href={link.url}>Watch</Button>
                 <Button size="sm" onClick={async () => await deleteLink(index)}>Delete</Button>
               </Stack>
             </Row>
