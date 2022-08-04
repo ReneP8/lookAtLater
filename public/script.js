@@ -1,12 +1,14 @@
 saveLink = async function (link) {
     var tmpLinks = [];
 
-    var title = "";
+    var title = "New Link";
 
     await fetch(`https://title-for-url.herokuapp.com/api/title?url=${link.linkUrl}`)
         .then(response => response.json())
         .then(data => {
-            title = data.title;
+            if (data.title && data.title.length > 0) {
+                title = data.title;
+            }
             chrome.storage.local.get(['lalLinks'], function (result) {
                 if (result && result.lalLinks) {
                     tmpLinks = result.lalLinks;
