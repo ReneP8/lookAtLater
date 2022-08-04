@@ -8,16 +8,17 @@ interface LalLink {
 
 function App() {
   const [links, setLinks] = useState<LalLink[]>([]);
+  const [reload, setReload] = useState<boolean>(false);
 
   useEffect(() => {
     // Todo unlimited loop.
     chrome.storage.local.get(['lalLinks'], function (result: any) {
-      let tmpLinks : LalLink[] = [];
+      let tmpLinks: LalLink[] = [];
       tmpLinks = result.lalLinks ? result.lalLinks as LalLink[] : [];
       console.log(tmpLinks);
       setLinks(tmpLinks);
     })
-  }, [links]);
+  }, [reload]);
 
   return (
     <Container className="m-3">
@@ -49,6 +50,7 @@ function App() {
     chrome.storage.local.set({ 'lalLinks': links }, () => {
     });
     setLinks(links);
+    setReload(!reload);
   }
 }
 
