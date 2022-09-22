@@ -21,7 +21,7 @@ function App() {
   }, [reload]);
 
   return (
-    <Container className="m-3">
+    <Container className="p-3">
       <h4>My saved Links</h4>
       {links.length !== 0 && (
         <Table striped bordered size="sm">
@@ -42,15 +42,17 @@ function App() {
                   <p>{link.url}</p>
                 </td>
                 <td>
-                  <Button size="sm" target="_blank" href={link.url}>
-                    Watch
-                  </Button>{" "}
-                  <Button
-                    size="sm"
-                    onClick={async () => await deleteLink(index)}
-                  >
-                    Delete
-                  </Button>
+                  <Stack gap={1}>
+                    <Button size="sm" target="_blank" href={link.url}>
+                      Watch
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={async () => await deleteLink(index)}
+                    >
+                      Delete
+                    </Button>
+                  </Stack>
                 </td>
               </tr>
             ))}
