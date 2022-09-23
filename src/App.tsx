@@ -24,7 +24,7 @@ function App() {
     <Container className="p-3">
       <h4>My saved Links</h4>
       {links.length !== 0 && (
-        <Table striped bordered size="sm">
+        <Table striped bordered size="sm" responsive>
           <thead>
             <tr>
               <th>#</th>
@@ -39,7 +39,7 @@ function App() {
                   <p>{index + 1}</p>
                 </td>
                 <td>
-                  <p>{link.url}</p>
+                  <p>{link.url.substring(0, 50)}</p>
                 </td>
                 <td>
                   <Stack gap={1}>
